@@ -1,8 +1,6 @@
-# enem-quiz
+# Enem-quiz
 
-Aplicação simples em Spring Boot + Thymeleaf que consome a API pública do
-ENEM (https://api.enem.dev) e deixa a pessoa responder as questões pelo
-navegador.
+Aplu
 
 ## Como rodar
 
