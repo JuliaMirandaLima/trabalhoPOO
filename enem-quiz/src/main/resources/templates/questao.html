@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Quiz ENEM</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <div class="card">
+        <p class="subtitulo" th:text="${numero} + ' de ' + ${total}"></p>
+        <h1 th:text="${questao.title}"></h1>
+
+        <p class="contexto" th:if="${questao.context}" th:text="${questao.context}"></p>
+
+        <!-- imagens do enunciado, se a questao tiver -->
+        <div th:if="${questao.files != null}">
+            <div th:each="arquivo : ${questao.files}">
+                <img th:src="${arquivo}"/>
+            </div>
+        </div>
+
+        <p th:text="${questao.alternativesIntroduction}"></p>
+
+        <form method="post" action="/responder">
+            <label th:each="alt : ${questao.alternatives}" class="alternativa">
+                <input type="radio" name="resposta" th:value="${alt.letter}" required/>
+                <span>
+                    <b th:text="${alt.letter}"></b>
+                    <span th:text="${alt.text}"></span>
+                    <img th:if="${alt.file != null}" th:src="${alt.file}"/>
+                </span>
+            </label>
+
+            <button type="submit">Responder</button>
+        </form>
+    </div>
+</body>
+</html>

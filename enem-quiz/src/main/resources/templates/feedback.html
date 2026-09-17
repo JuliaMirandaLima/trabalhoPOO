@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Resultado da questão</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <div class="card">
+        <h1 class="acerto" th:if="${acertou}">Você acertou! ✅</h1>
+        <h1 class="erro" th:unless="${acertou}">Você errou! ❌</h1>
+
+        <p>A alternativa correta era: <b th:text="${respostaCorreta}"></b></p>
+
+        <a class="link-botao" th:unless="${acabou}" href="/questao">Próxima questão</a>
+        <a class="link-botao" th:if="${acabou}" href="/resultado">Ver resultado final</a>
+    </div>
+</body>
+</html>

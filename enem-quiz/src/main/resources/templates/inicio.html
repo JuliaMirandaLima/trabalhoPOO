@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Quiz ENEM</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <div class="card">
+        <h1>Quiz de questões do ENEM</h1>
+
+        <form method="post" action="/iniciar">
+            <label>Ano da prova</label>
+            <input type="number" name="ano" value="2020" min="2009" max="2023"/>
+
+            <label>Quantidade de questões</label>
+            <input type="number" name="quantidade" value="5" min="1" max="20"/>
+
+            <button type="submit">Começar</button>
+        </form>
+    </div>
+</body>
+</html>

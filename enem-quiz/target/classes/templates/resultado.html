@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Resultado</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <div class="card">
+        <h1>Fim do quiz!</h1>
+        <p class="placar">Você acertou <b th:text="${acertos}"></b> de <b th:text="${total}"></b> questões.</p>
+        <a class="link-botao" href="/">Jogar novamente</a>
+    </div>
+</body>
+</html>
