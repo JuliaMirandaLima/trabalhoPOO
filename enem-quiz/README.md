@@ -1,34 +1,62 @@
-# Enem-quiz
+# Enem-quiz (adaptado para mapeamento JPA)
 
-Aplu
+Projeto adaptado para demonstrar mapeamento Objeto-Relacional com Spring Data JPA.
+
+## Componentes da Dupla
+
+- Nome 1: <preencher>
+- Nome 2: <preencher>
+
+## Tema do projeto
+
+Exemplo didático com entidades que representam pessoas, cursos e disciplinas
+para demonstrar relacionamentos JPA (1:1, 1:N, N:1, N:M) e herança.
+
+## Relacionamentos usados
+
+- 1:1 — `Person` ↔ `Profile` (bidirecional)
+- 1:N — `Course` → `Discipline` (um curso tem muitas disciplinas)
+- N:1 — `Discipline` → `Course` (muitos para um)
+- N:M — `Student` ↔ `Course` (alunos matriculados em vários cursos)
+- Herança — `Person` (base) → `Student` e `Teacher` (estratégia: `JOINED`)
+
+## Estratégia de herança escolhida
+
+Usada: `InheritanceType.JOINED` — cada subclasse tem sua própria tabela, a
+tabela base contém os campos comuns.
+
+## Diagrama Mermaid
+
+```mermaid
+classDiagram
+    Person <|-- Student
+    Person <|-- Teacher
+    Person "1" o-- "1" Profile : has
+    Course "1" o-- "*" Discipline : contains
+    Student "*" -- "*" Course : enrolled_in
+```
 
 ## Como rodar
 
+1. Configure o MySQL em `src/main/resources/application.properties` (usuário/senha/database).
+2. Execute:
+
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.main-class=br.edu.ifpr.seuprojeto.Application
 ```
-./mvnw spring-boot:run
-```
 
-Depois é só abrir http://localhost:8080
+Isso executará a classe `br.edu.ifpr.seuprojeto.Application` que contém um
+`CommandLineRunner` que insere dados de exemplo no banco (teste simples de inserção).
 
-## Como funciona (visão geral)
+## O que foi adicionado
 
-- `model/` — classes que representam o JSON que a API devolve
-  (`Questao`, `Alternativa`, `RespostaEnemApi`). Os nomes dos atributos são
-  iguais aos nomes dos campos no JSON pra o Jackson (biblioteca que
-  converte JSON <-> objeto Java) preencher tudo sozinho.
-- `service/EnemApiService` — a única classe que fala com a API do ENEM.
-  Usa o `RestClient` do Spring pra fazer o GET em
-  `https://api.enem.dev/v1/exams/{ano}/questions` e já recebe o resultado
-  como objeto Java.
-- `controller/QuizController` — comanda o fluxo do quiz:
-  1. `GET /` — tela pra escolher ano e quantidade de questões
-  2. `POST /iniciar` — busca as questões na API e guarda tudo na sessão
-     HTTP (lista de questões, questão atual, número de acertos)
-  3. `GET /questao` — mostra a questão atual
-  4. `POST /responder` — recebe a letra marcada, confere se é a
-     `correctAlternative` da questão e avança pra próxima
-  5. `GET /resultado` — mostra o placar final
+- Pacote `br.edu.ifpr.seuprojeto.model` com as entidades: `Person`, `Student`, `Teacher`, `Profile`, `Course`, `Discipline`.
+- Pacote `br.edu.ifpr.seuprojeto.repository` com repositórios Spring Data JPA.
+- Configuração JPA em `application.properties` (usar MySQL local).
+- `CommandLineRunner` para inserir registros e criar tabelas automaticamente.
 
-Não usa banco de dados: tudo fica guardado na sessão (`HttpSession`)
-enquanto a pessoa está jogando, então dá pra entender o fluxo sem se
-preocupar com JPA/repository.
+## Observações
+
+Preencha os nomes dos componentes da dupla no topo do arquivo e ajuste o
+`application.properties` para apontar ao seu banco MySQL local.
+

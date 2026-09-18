@@ -1,13 +1,13 @@
-package br.edu.ifpr.enemquiz.model;
+package br.edu.ifpr.enemquiz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EnemQuizApplication {
+public class QuizApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EnemQuizApplication.class, args);
+        SpringApplication.run(QuizApplication.class, args);
     }
 
 }
